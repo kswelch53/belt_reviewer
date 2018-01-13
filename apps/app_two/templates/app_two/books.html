@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'app_two/css/style.css' %}" media="screen" title="no title">
+    <title>Home page</title>
+  </head>
+  <body>
+
+    <div class="header">
+      <p><a href={% url 'app2:add_book' %}>Add Book and Review</a><a href={% url 'app1:logout' %}>Logout</a></p>
+    </div>
+
+    <h1><img src="{% static 'app_two/images/yellowstar.jpg' %}" width="25" alt="image"> Welcome, {{ request.session.user_alias }}! <img src="{% static 'app_two/images/yellowstar.jpg' %}" width="25" alt="image"></h1>
+    <div class="column1">
+
+
+      <h2>Recent Book Reviews:</h2>
+      <br>
+
+        {% for review in reviews %}
+          <h4><a href="{% url 'app2:add_review' id=review.book_link.id %}">{{ review.book_link.title }}</a></h4>
+  <!-- change rating number to stars -->
+          <p>Rating: <img src="{% static 'app_two/images/1.jpg' %}" width="80" alt="image"></p>
+
+          <p><a href="{% url 'app2:users' user_id=review.user_link.id %}">{{ review.user_link.alias }}</a>says: {{ review.review }}</p>
+          <p>Posted on {{ review.created_at.date }}</p>
+        {% endfor %}
+    </div><!-- column1 end div -->
+
+    <div class="column2">
+      <h2>Other Book with Reviews:</h2>
+      <div class="scrollbar">
+        {% for book in books %}
+          <h5><a href="{% url 'app2:add_review' id=book.id %}">{{ book.title }}</a></h5>
+        {% endfor %}
+      </div><!-- scrollbar end div -->
+    </div><!-- column2 end div -->
+
+  </body>
+</html>

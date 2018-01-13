@@ -1,0 +1,62 @@
+
+.column1{
+  display: inline-block;
+  width: 50%;
+  height: auto;
+  padding-right: 5%;
+}
+
+.column2{
+  display: inline-block;
+  width: 30%;
+  height: auto;
+  vertical-align: top;
+}
+
+.delete_review a{
+  display: block;
+  color: blue;
+  font-family: sans-serif;
+  margin-left: 40%;
+}
+
+h1, h2, h3, h4, h5{
+  font-family: sans-serif;
+  /* line-height: 15px; */
+}
+
+h6{
+  font-family: sans-serif;
+  font-size: 12pt;
+  font-style: italic;
+  font-weight: lighter;
+  line-height: 0px;
+}
+
+.header{
+    margin-left: 70%;
+}
+
+input{
+  width: 30%
+}
+
+p{
+  font-family: sans-serif;
+}
+
+p a{
+  font-family: sans-serif;
+  color: blue;
+  margin-right: 20px;
+}
+
+.scrollbar{
+  height: 300px;
+  overflow: scroll;
+}
+
+.submit{
+  display: block;
+  margin-left: 65%;
+}

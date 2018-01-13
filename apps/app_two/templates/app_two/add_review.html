@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'app_two/css/style.css' %}" media="screen" title="no title">
+    <title>Display Book and Review</title>
+  </head>
+  <body>
+
+    <div class="header">
+      <p><a href={% url 'app2:index' %}>Home</a><a href={% url 'app1:logout' %}>Logout</a></p>
+    </div>
+
+    <h2>{{ book.title }}</h2>
+    <h3>Author: {{ book.author }}</h3>
+
+    <div class="column1">
+      <h2>Reviews:</h2>
+      <h6>__________________________________________</h6>
+      {% for review in reviews %}
+
+        <h6>Rating: {{ review.rating }} stars</h6>
+
+<!-- unsuccessfully tried to change rating number to stars -->
+        <!-- <h6>Rating: <img src="{% static 'app_two/images/4.jpg' %}" width="80" alt="image"></h6> -->
+
+        <!-- <h6>Rating: <img src="{% static 'app_two/images/{{ review.rating }}' %}" width="25" alt="image"></h6> -->
+
+        <h6>{{ review.user_link.alias }} says: {{ review.review }}</h6>
+        <p><h6>Posted on: {{ review.created_at.date }}</h6></p>
+
+<!-- checks whether review was created by the session user -->
+<!-- if so, displays Delete this Review link -->
+      <div class="delete_review">
+        {% if review.user_link.id == request.session.user_id %}
+          <a href="{% url 'app2:delete_review' review_id=review.id %}">Delete this Review</a>
+        {% endif %}
+        <h6>__________________________________________</h6>
+        {% endfor %}
+      </div>
+
+    </div><!-- column1 div end -->
+
+    <div class="column2">
+      <form class = "bookreview" action="{% url 'app2:add_review' id=book.id %}" method="POST">
+        {% csrf_token %}
+        <h3>Add a Review:</h3>
+        <textarea name = "review" rows="4" cols="40"></textarea></h4>
+        <br>
+        <br>
+        <p>Rating: <select name="rating">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+          <option value="4">4</option>
+          <option value="5">5</option></p>
+        </select> stars
+        <br>
+        <br>
+        <button class="submit" value="Add">Submit Review</button>
+      </form>
+
+    </div>
+
+  </body>
+</html>
